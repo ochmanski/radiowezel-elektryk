@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+      "riccardonovaglia.missinglineendoffile",
+      "2gua.rainbow-brackets",
+      "bbenoist.vagrant",
+      "peterjausovec.vscode-docker",
+      "eg2.tslint",
+      "aliariff.auto-add-brackets",
+      "marclipovsky.string-manipulation",
+      "kamikillerto.vscode-colorize"
+	],
+}

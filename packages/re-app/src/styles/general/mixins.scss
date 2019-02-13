@@ -1,0 +1,65 @@
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      font-size: $min-font-size;
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        line-height: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})) + 6;
+      }
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+        line-height: $max-font-size + 6;
+      }
+    }
+  }
+}
+
+// Gradient backgrounds
+@mixin bg-gradient($parent, $gradient) {
+  #{$parent} {
+    background: $gradient;
+  }
+}
+
+// Gradient text
+@mixin text-gradient($parent, $gradient) {
+  #{$parent} {
+    background-image: $gradient;
+    color:transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+@mixin tapColor($color, $transparentizeAmount: .5) {
+  -webkit-tap-highlight-color: transparentize($color, $transparentizeAmount);
+  @content;
+}
+
+// Viewports
+@mixin small {
+  @media (min-width: 0px) and (max-width: #{$small-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin smaller {
+  @media (min-width: #{$small-width}) and (max-width: #{$smaller-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin normal {
+  @media (min-width: #{$normal-width}) {
+    @content;
+  }
+}

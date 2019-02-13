@@ -1,0 +1,130 @@
+# require "../../config/vagrant"
+# include Config
+
+ENV["VAGRANT_DEFAULT_PROVIDER"] = "virtualbox"
+ENV["VAGRANT_DISABLE_VBOXSYMLINKCREATE"] = "0"
+
+# Sprawdź czy plugin vagrant-docker-compose (provisioner dockera) jest zainstalowany
+# Jeśli nie, zainstaluj go
+unless Vagrant.has_plugin?("vagrant-docker-compose")
+   system("vagrant plugin install vagrant-docker-compose")
+   puts "Dependencies installed, please try the command again."
+   exit
+end
+
+# Sprawdź czy plugin vagrant-env (używany do konfiguracji) jest zainstalowany
+# Jeśli nie, zainstaluj go
+unless Vagrant.has_plugin?("vagrant-env")
+   system("vagrant plugin install vagrant-env")
+   puts "Dependencies installed, please try the command again."
+   exit
+end
+
+# Ścieżka do skryptu, który wykonuje się tylko raz, żeby zainstalować potrzebne programy
+bootstrapScriptPath = "./bootstrap.sh"
+
+# Ścieżka do skryptu, który wykonuje się po zainstalowaniu wszystkiego w vm
+afterScriptPath = "./after.sh"
+
+# Nazwa aplikacji
+APP_NAME = "radiowezel-elektryk"
+
+# Cała aplikacja (główny folder, który zostanie zamontowany w vm)
+APP_FOLDER = "/#{APP_NAME}"
+
+# Ścieżka do docker-compose.yml i docker-compose-base.yml dla provisionera dockera
+APP_DOCKER_FOLDER = "#{APP_FOLDER}/provision/docker"
+
+# Pliki docker-compose.yml używane przez provisioning dockera
+APP_DOCKER_COMPOSE_BASE_FILE = "#{APP_DOCKER_FOLDER}/docker-compose-base.yml"
+APP_DOCKER_COMPOSE_FILE = "#{APP_DOCKER_FOLDER}/docker-compose.yml"
+
+# Wewnętrzny port vagranta dla aplikacji
+APP_FORWARD_GUEST_PORT = 5000
+
+# Wewnętrzny port vagranta dla aplikacji (webpack-jarvis)
+APPDEV_FORWARD_GUEST_PORT = 5001
+
+# Wewnętrzny port vagranta dla serwera
+SERVER_FORWARD_GUEST_PORT = 3000
+
+# Wewnętrzny port vagranta dla zarządzania kontenerami w przeglądarce
+CONTAINER_MANAGER_FORWARD_GUEST_PORT = 9000
+
+Vagrant.configure("2") do |config|
+   config.env.enable "../../config/.env"
+   config.vm.define APP_NAME
+   config.vm.box = "ubuntu/xenial64"
+
+   # Zamontuj główny folder aplikacji w vm
+   config.vm.synced_folder "../../", APP_FOLDER,
+      mount_options: ["dmode=777,fmode=777"]
+
+   # Może kiedyś zadziała
+   # config.vm.synced_folder "/#{APP_NAME}-database", "/re-database",
+   #    type: "rsync",
+   #    mount_options: ["dmode=777,fmode=777"]
+   # vagrant rsync-auto > /dev/null & vagrant ssh && fg
+
+   # Konfiguracja sieci
+   config.vm.network :public_network, bridge: ENV["NETWORK_INTERFACE"]
+
+   config.vm.hostname = APP_NAME
+
+   # Przekierowanie portów dla aplikacji
+   config.vm.network "forwarded_port",
+      host: ENV["APP_FORWARD_HOST_PORT"],
+      guest: APP_FORWARD_GUEST_PORT,
+      auto_correct: true
+
+   # Przekierowanie portów dla aplikacji (webpack-jarvis)
+   config.vm.network "forwarded_port",
+      host: ENV["APPDEV_FORWARD_HOST_PORT"],
+      guest: APPDEV_FORWARD_GUEST_PORT,
+      auto_correct: true
+
+   # Przekierowanie portów dla serwera
+   config.vm.network "forwarded_port",
+      host: ENV["SERVER_FORWARD_HOST_PORT"],
+      guest: SERVER_FORWARD_GUEST_PORT,
+      auto_correct: true
+
+   # Przekierowanie portów dla zarządzania kontenerami w przeglądarce
+   config.vm.network "forwarded_port",
+      host: ENV["CONTAINER_MANAGER_FORWARD_HOST_PORT"],
+      guest: CONTAINER_MANAGER_FORWARD_GUEST_PORT,
+      auto_correct: true
+
+   # Virtualbox
+   config.vm.provider "virtualbox" do |v|
+      v.memory = ENV["VIRTUALBOX_MEMORY"]
+      v.cpus = ENV["VIRTUALBOX_CPUS"]
+      v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/node_modules", "1"]
+      v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/radiowezel-elektryk", "1"]
+   end
+
+   # Provision dockera i docker-compose
+   config.vm.provision :docker
+   config.vm.provision :docker_compose,
+      yml: [APP_DOCKER_COMPOSE_BASE_FILE, APP_DOCKER_COMPOSE_FILE],
+      project_name: APP_NAME,
+      rebuild: true,
+      run: "always"
+
+   ## Skrypt instalujący wszystkie potrzebne programy (bootstrap.sh)
+   #config.vm.provision "shell",
+   #   name: "bootstrap.sh",
+   #   path: bootstrapScriptPath,
+   #   run: "always",
+   #   privileged: true,
+   #   keep_color: true
+
+   # Skrypt wykonujący się zawsze na końcu (after.sh)
+   config.vm.provision "shell",
+      name: "after.sh",
+      path: afterScriptPath,
+      run: "always",
+      privileged: false,
+      keep_color: true
+
+end

@@ -1,0 +1,15 @@
+{
+  "extends": ["../../tslint.base.json"],
+  "rules": {
+    "no-import-side-effect": [true, {"ignore-module": "(\\.html|\\.css|\\.scss)$"}],
+    "no-submodule-imports": [
+      true,
+      "react-icons",
+      "react-facebook-login",
+      "@material-ui",
+      "@styles",
+      "@re",
+      "react-hot-loader"
+    ]
+  }
+}

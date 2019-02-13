@@ -1,0 +1,64 @@
+version: "3"
+
+services:
+    
+   # Front aplikacji
+   re-app:
+      build:
+         context: ./builds
+         dockerfile: Dockerfile.re-app
+      volumes:
+         - ../../packages/re-app:/serviceRoot/service/re-app:rw
+      working_dir: /re-app
+      ports:
+         - 5000:5000
+         - 5001:5001
+      depends_on:
+         - re-server
+
+   # Serwer aplikacji
+   re-server:
+      build:
+         context: ./builds
+         dockerfile: Dockerfile.re-server
+      volumes:
+         - ../../packages/re-server:/serviceRoot/service/re-server:rw
+      working_dir: /re-server
+      ports:
+         - 3000:3000
+      depends_on:
+         - re-database
+
+   # Baza danych aplikacji (MongoDB)
+   re-database:
+      image: mongo
+      environment:
+         - MONGO_DATA_DIR=/data/db
+         - MONGO_LOG_DIR=/dev/null
+         - MONGO_INITDB_DATABASE=main
+      volumes:
+         - /data/db:/data/db
+         - ./data/db:/re-database:rw
+      ports:
+         - 27017:27017
+      depends_on:
+         - re-database-cache
+
+   # Cache bazy danych dla zapytań (Redis)
+   re-database-cache:
+      image: redis
+      ports: 
+         - 6379:6379
+
+   # Zarządzanie kontenerami w przeglądarce
+   re-manage:
+      image: portainer/portainer
+      ports:
+         - 9000:9000
+      command: -H unix:///var/run/docker.sock
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+         - portainer_data:/data
+         
+volumes:
+  portainer_data:

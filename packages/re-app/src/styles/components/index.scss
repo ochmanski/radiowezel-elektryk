@@ -1,0 +1,342 @@
+@import '~normalize.scss/normalize';
+@import '~@styles/general/vars';
+@import '~@styles/general/mixins';
+@import '~@styles/general/viewports';
+@import '~react-tippy/dist/tippy.css';
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: lighten( $niceBlue, 30% );
+  color: darken( $niceBlue, 10% );
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: $fontFamily;
+  // @include bg-gradient('&', map-get($gradients, 'body'));
+  transition:
+    250ms background-color $easeMaterialUi,
+    250ms color $easeMaterialUi;
+}
+
+:global {
+  .snackWrapper {
+    // & > div {
+    //   background: red !important;
+    // }
+    
+    .snack {
+      display: flex;
+      flex-flow: column nowrap;
+      
+      & > hr {
+        margin-bottom: 6px;
+      }
+    }
+  }
+  
+
+  .loadingEl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    transition: 70ms all $easeInOutCubic;
+    visibility: hidden;
+    pointer-events: none;
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      z-index: 9999;
+    }
+  }
+
+  .avatar {
+    position: relative;
+    width: 21px !important;
+    height: 21px !important;
+    border: 1px solid transparent;
+    
+    &.avatarAccount {
+      width: 105px !important;
+      height: 105px !important;
+      border-width: 3px !important;
+      p {
+        font-size: 380% !important;
+        font-weight: 500;
+      }
+    }
+
+    &.avatarNormal {
+      border-color: lighten($blackDimmed, 40%);
+    }
+    
+    &.avatarAdmin {
+      border-color: $adminColor;
+      // background: lighten($adminColor, 37%);
+      p {
+        color: $adminColor;
+      }
+    }
+    
+    &.avatarSuperAdmin {
+      border-color: $superAdminColor;
+      // background: lighten($superAdminColor, 42%);
+      p {
+        color: $superAdminColor;
+      }
+    }
+
+    p {
+      position: absolute;
+      font-size: 65%;
+      font-weight: 700;
+      // padding-bottom: 1px;
+    }
+  }
+  
+  .avatarMobile {
+    display: inline-block;
+  } 
+
+  .buttonTextIconCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+
+    svg {
+      margin-right: 4px;
+    }
+    
+  }
+
+  html {
+
+    &.light {
+
+      body {
+        background: $whiteDimmed;
+        color: $blackDimmed;
+      }
+
+      .themedColorDimmed {
+        color: $blackDimmed !important;
+      }
+
+      .themedColorDimmedAll, .themedColorDimmedAll * {
+        color: $blackDimmed !important;
+      }
+
+      .themedColor {
+        color: $black !important;
+      }
+
+      .themedColorAll, .themedColorAll * {
+        color: $black !important;
+      }
+
+
+
+
+      .themedBackgroundDimmed {
+        background-color: $whiteDimmed !important;
+      }
+
+      .themedBackgroundDimmedAll, .themedBackgroundDimmedAll * {
+        background-color: $whiteDimmed !important;
+      }
+
+      .themedBackground {
+        background-color: $white !important;
+      }
+
+      .themedBackgroundAll, .themedBackgroundAll * {
+        background-color: $white !important;
+      }
+
+
+
+      .themedInvert {
+        filter: invert(21%) !important;
+      }
+
+      .themedInvertAll, .themedInvertAll * {
+        filter: invert(21%) !important;
+      }
+      
+    }
+
+    &.dark {
+
+      a {
+        color: lighten( $niceBlue, 15% ) !important;
+      }
+
+      body {
+        background: $blackDimmed;
+        color: $whiteDimmed;
+      }
+
+      .themedColorDimmed {
+        color: $whiteDimmed !important;
+      }
+
+      .themedColorDimmedAll, .themedColorDimmedAll * {
+        color: $whiteDimmed !important;
+      }
+
+      .themedColor {
+        color: $white !important;
+      }
+
+      .themedColorAll, .themedColorAll * {
+        color: $white !important;
+      }
+      
+      
+
+      .themedBackgroundDimmed {
+        background-color: $blackDimmed !important;
+      }
+
+      .themedBackgroundDimmedAll * {
+        background-color: $blackDimmed !important;
+      }
+
+      .themedBackground {
+        background-color: $black !important;
+      }
+
+      .themedBackgroundAll * {
+        background-color: $black !important;
+      }
+
+
+
+      .themedInvert {
+        filter: invert(89%) !important;
+      }
+      
+      .themedInvertAll * {
+        filter: invert(89%) !important;
+      }
+      
+    }
+
+  }
+  
+  #root {
+    height: 100%;
+  }
+  
+  .h1, .h2, .h3, .h4, .h5, .h6 { font-weight: 700; }
+
+  .h1, .h2 {
+    line-height: 1.2;
+    @include viewports(tiny small) {
+      line-height: 1.3;
+    }
+  }
+  
+  .h3, .h4, .h5 {
+    line-height: 1.35;
+    @include viewports(tiny small) {
+      line-height: 1.45;
+    }
+  }
+
+  .h1 {
+    font-size: 300% * $fontSizeModifier;
+    @include viewports(tiny small) {
+      font-size: (300% - $fontSizeViewportModifier) * $fontSizeModifier;
+    }
+  }
+
+  .h2 {
+    font-size: 250% * $fontSizeModifier;
+    @include viewports(tiny small) {
+      font-size: (250% - $fontSizeViewportModifier) * $fontSizeModifier;
+    }
+  }
+
+  .h3 {
+    font-size: 200% * $fontSizeModifier;
+    @include viewports(tiny small) {
+      font-size: (200% - $fontSizeViewportModifier) * $fontSizeModifier;
+    }
+  }
+
+  .h4 {
+    font-size: 180% * $fontSizeModifier;
+    @include viewports(tiny small) {
+      font-size: (180% - $fontSizeViewportModifier) * $fontSizeModifier;
+    }
+  }
+
+  .h5 {
+    font-size: 130% * $fontSizeModifier;
+    @include viewports(tiny small) {
+      font-size: (130% - $fontSizeViewportModifier) * $fontSizeModifier;
+    }
+  }
+
+  .fixed { font-family: 'Courier New', Courier, monospace; font-size: 100%; line-height: 1.45; }
+
+  .quiet { color: $blackDimmedMore; }
+  .loud  { color: $blackDimmed; }
+
+  .quietWhite { color: $whiteDimmedMore; }
+  .loudWhite { color: $whiteDimmed; }
+
+  .italic { font-style: italic; }
+  .bold   { font-weight: 700; @extend .loud; }
+
+  .block-margins { margin: 1em 0; }
+
+  .unordered-list { list-style-type: disc; }
+  .ordered-list { list-style: decimal; }
+
+  a {
+    color: darken( $niceBlue, 10% );
+  }
+
+  h1, h2, h3, h4, h5, h6, p, a {
+    margin: 0;
+  }
+}
+
+// h1, h2 {  
+//   font-size: $mod_1*$mod_1*$mod_1*$mod_1 *1rem; 
+//   @include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
+// }
+
+// h3, h4 { 
+//   font-size: $mod_1*$mod_1 *1rem;
+//   @include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
+// }
+
+// h5, h6 {
+//   font-size: $mod_1*$mod_1 *1rem;
+//   @include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2 *$min_font);
+// }
+
+// p, a {
+//   font-size: $mod_1 *1rem;
+//   $mod_1: $mod_1 * .82;
+//   $mod_2: $mod_2 * .82;
+//   @include fluid-type($min_width, $max_width, $mod_1 *$min_font, $mod_2 *$min_font);
+// }

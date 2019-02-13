@@ -1,0 +1,139 @@
+@import '~@styles/general/vars';
+@import '~@styles/general/mixins';
+@import '~@styles/general/viewports';
+
+.card {
+  // background: $whiteDimmed !important;
+  border-radius: 4px 4px 0 0 !important;
+  
+  button svg {
+    margin-right: 4px;
+  }
+  
+}
+
+.cardHeader {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0 !important;
+  z-index: 1;
+
+  @include viewports(tiny small) {
+    flex-wrap: wrap;
+  }
+}
+
+// .avatarWrapper {
+//   span {
+//     color: $black;
+//   }
+// }
+
+.avatarContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: row nowrap;
+  padding: 24px !important;
+  z-index: 1;
+  
+  // h2 {
+  //   color: $white;
+  // }
+
+  @include viewports(tiny small) {
+    justify-content: center;
+    // background: $whiteDimmed;
+  }
+  
+  h2 {
+    margin-left: 22px;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-flow: column nowrap;
+  white-space: nowrap;
+  padding: 6px !important;
+  // background: darken($blackDimmedMore, 1%);
+  // background: $secondary;
+  background: linear-gradient(-45deg, $primary, $secondary);
+  background-size: 500% 500%;
+  animation: Gradient 15s $authenticMotion infinite;
+  
+  @include viewports(tiny small) {
+    justify-content: center !important;
+    flex-flow: row wrap;
+    width: 100%;
+    padding: 12px 24px !important;
+  }
+
+  button {
+    font-size: 75%;
+    color: $blackDimmed;
+    justify-content: flex-start;
+
+    @include viewports(tiny small) {
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+    
+    svg {
+      transform: scale(.87);
+    }
+  }
+  
+}
+
+.expansionSummaryWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    margin-right: 4px;
+  }
+  
+}
+
+.appearanceSettings {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.licence {
+  white-space: pre-wrap;
+  // font-size: 70%;
+}
+
+.infoDetails {
+  flex-flow: column nowrap;
+}
+
+.reDevelop {
+  text-align: center;
+  margin-top: 18px !important;
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}

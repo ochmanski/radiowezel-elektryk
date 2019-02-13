@@ -1,0 +1,22 @@
+{
+  "name": "radiowezel-elektryk",
+  "version": "1.0.0",
+  "repository": "https://github.com/ochmanski/radiowezel-elektryk.git",
+  "description": "Aplikacja internetowa do głosowania na utwory, w wybranych przedziałach czasowych",
+  "author": "Kacper Ochmański <kacper@ochman.ski> (https://ochman.ski)",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "yarn lerna exec --scope re-server yarn dev",
+    "dev:app": "yarn lerna exec --scope re-app yarn dev",
+    "dev": "yarn lerna exec dev",
+    "prod:server": "yarn lerna exec --scope re-server yarn prod",
+    "bootstrap": "yarn lerna bootstrap"
+  },
+  "devDependencies": {
+    "lerna": "^3.4.3"
+  }
+}

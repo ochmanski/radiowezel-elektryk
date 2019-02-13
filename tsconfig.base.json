@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "sourceMap": false,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ],
+    "strict": true,
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2017",
+      "esnext.asynciterable"
+    ]
+  },
+  "exclude": [
+    "./node_modules",
+    "../node_modules"
+  ]
+}

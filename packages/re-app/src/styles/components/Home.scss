@@ -1,0 +1,86 @@
+@import '~@styles/general/vars';
+@import '~@styles/general/mixins';
+@import '~@styles/general/viewports';
+
+.Home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  // @include viewports(tiny small) {
+  //   padding-bottom: 15px;
+  // }
+  
+  a {
+    text-decoration: none;
+    flex: 1;
+  }
+}
+
+:global{
+  html.dark {
+    
+    :local(.firstVisitInfo) {
+      background: $black !important;
+      
+      * {
+        color: $white;
+      }
+
+    }
+    
+  }
+}
+
+.firstVisitInfo {
+  position: relative;
+  background: $white !important;
+  border-radius: $normalRadius;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
+  // box-shadow:
+  //   0 20px 80px 0 transparentize($blackDimmed, .98),
+  //   0 10px 42px 0 transparentize($blackDimmed, .95),
+  //   0 5px 22px 0 transparentize($blackDimmed, .93),
+  //   0 0 5px 1px transparentize($blackDimmed, .9);
+  
+  .firstVisitInfoHeader {
+    position: relative;
+    padding: 11px 20px 1px 20px;
+    border-radius: $normalRadius $normalRadius 0 0;
+  }
+  
+  .firstVisitInfoContent {
+    position: relative;
+    padding: 0 20px 11px 20px;
+    border-radius: 0 0 $normalRadius $normalRadius;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 0 0 $normalRadius $normalRadius;
+      background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+      background-size: 450% 450%;
+      // filter: blur(1px);
+      animation: Gradient 15s $authenticMotion infinite;
+    }
+    
+  }
+
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}

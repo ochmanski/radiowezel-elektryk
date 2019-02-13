@@ -1,0 +1,194 @@
+@import '~@styles/general/vars';
+@import '~@styles/general/mixins';
+@import '~@styles/general/viewports';
+
+.Auth {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  z-index: 1;
+}
+
+.card {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0 5px;
+
+  @include viewports(tiny small) {
+    height: 100% !important;
+    width: 100%;
+    padding: 0 8px;
+  }
+  
+}
+
+.infoText {
+  padding-bottom: 0 !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+
+  h5 {
+    font-weight: bold;
+  }
+
+  .infoTextSub {
+    font-size: 68%;
+
+    @include viewports(tiny small) {
+      font-size: 75% !important;
+    }
+    
+  }
+  
+  svg {
+    margin-right: 4px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  flex: 1;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.form {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-basis: 100%;
+  width: 100%;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  
+  .formMainInput {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    flex-basis: 100%;
+    height: 100%;
+    padding-top: 35px;
+    padding-bottom: 30px;
+  }
+
+  .input {
+    max-width: 380px;
+    margin-top: 12px !important;
+
+    @include viewports(tiny small) {
+      width: 100%;
+      max-width: 300px;
+    }
+    
+  }
+}
+
+.loginSubmit {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-self: flex-end;
+  width: 100%;
+  padding-right: 0 !important;
+  padding-bottom: 10px !important;
+  // align-items: flex-end !important;
+  // padding: 5px 12px !important;
+  // padding-bottom: 40px !important;
+  // background: red;
+  
+  button {
+    @include viewports(medium large) {
+      padding: 7px 8px;
+      min-width: 64px;
+      font-size: 0.8125rem;
+      min-height: 32px;
+    }
+  }
+  
+}
+
+.register {
+  font-size: 68% !important;
+  padding-top: 6px;
+
+  @include viewports(tiny small) {
+    padding-top: 16px;
+    font-size: 75% !important;
+  }
+  
+}
+
+.or {
+  position: relative;
+  text-align: center;
+  padding-top: 4px !important;
+  padding-bottom: 0 !important;
+  
+  &::after, &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    // transform: translateY(20%);
+    background: lighten($black, 80%);
+    height: 2px;
+    width: 43%;
+  }
+
+  &::after {
+    left: -5px;
+
+    @include viewports(tiny small) {
+      left: -8px;
+    }
+    
+  }
+
+  &::before {
+    right: -5px;
+
+    @include viewports(tiny small) {
+      right: -8px;
+    }
+    
+  }
+  
+}
+
+.loginFacebookButton {
+  // background: $facebookBlue !important;
+  color: $facebookBlue !important;
+  border-color: $facebookBlue !important;
+  margin-bottom: 6px !important;
+
+  @include viewports(tiny small) {
+    padding: 7px 8px;
+    min-width: 64px;
+    font-size: 0.8125rem;
+    min-height: 32px;
+  }
+
+  // &:hover {
+  //   background: $facebookBlue !important;
+  //   color: $white !important;
+  // }
+
+  svg {
+    transform: scale(.95);
+    margin-right: 8px;
+  }
+  
+}

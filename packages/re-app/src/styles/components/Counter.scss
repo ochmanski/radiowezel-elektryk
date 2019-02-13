@@ -1,0 +1,117 @@
+@import '~@styles/general/vars';
+@import '~@styles/general/mixins';
+@import '~@styles/general/viewports';
+
+
+.counterOuter {
+  position: relative;
+  z-index: 1;
+
+  // @include viewports(tiny small) {
+  //   z-index: 1;
+  // }
+  
+}
+
+.counterOuter,
+.counterWrapper,
+.counterPlaceholder {
+  height: 130px;
+
+  @include viewports(tiny small) {
+    height: 90px;
+  }
+  
+}
+
+.counterWrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0 25px;
+
+  @include viewports(tiny small) {
+    padding: 0 20px;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    height: 100%;
+    box-shadow:
+      0 0 65px 65px transparentize($whiteDimmed, 0),
+      0 0 130px 130px transparentize($whiteDimmed, .3);
+    transition: 250ms all $easeMaterialUi;
+
+    @include viewports(tiny small) {
+      box-shadow:
+        0 0 65px 65px transparentize($whiteDimmed, 0),
+        0 0 40px 40px transparentize($whiteDimmed, 0),
+        0 0 35px 35px transparentize($whiteDimmed, 0),
+        0 0 65px 35px transparentize($whiteDimmed, .3);
+    }
+    
+  }
+  
+}
+
+:global {
+  html.dark {
+
+    :local(.counter) {
+      color: $whiteDimmed;
+    }
+
+    :local(.counterWrapper::after) {
+      box-shadow:
+        0 0 65px 65px transparentize($blackDimmed, 0),
+        0 0 130px 130px transparentize($blackDimmed, .3);
+
+      @include viewports(tiny small) {
+        box-shadow:
+          0 0 65px 65px transparentize($blackDimmed, 0),
+          0 0 40px 40px transparentize($blackDimmed, 0),
+          0 0 35px 35px transparentize($blackDimmed, 0),
+          0 0 65px 35px transparentize($blackDimmed, .3);
+      }
+        
+    }
+
+    
+  }
+}
+
+.counter {
+  position: relative;
+  font-size: 700%;
+  margin-bottom: 6px;
+  z-index: 1;
+  transition: 250ms color $easeMaterialUi;
+  
+  @include viewports(tiny small) {
+    font-size: 300%;
+    // margin-bottom: 12px;
+    margin-top: 30px;
+  }
+  // &.hours {
+  //   font-weight: 700;
+  // }
+
+  // &.minutes {
+  //   font-weight: 500;
+  // }
+
+  // &.seconds {
+  //   font-weight: 300;
+  // }
+  
+}

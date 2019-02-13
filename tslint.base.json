@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "tslint:all",
+    "tslint-config-airbnb",
+    "tslint-eslint-rules"
+  ],
+  "rules": {
+    "prefer-function-over-method": false,
+    "no-implicit-dependencies": false,
+    "object-literal-sort-keys": false,
+    "no-submodule-imports": true,
+    "only-arrow-functions": false,
+    "no-inferrable-types": false,
+    "no-default-export": false,
+    "file-name-casing": false,
+    "ordered-imports": false,
+    "ban-ts-ignore": false,
+    "function-name": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ],
+    "import-name": false,
+    "no-console": false,
+    "align": false
+  }
+}

@@ -1,0 +1,45 @@
+@import '~@styles/general/vars';
+@import '~@styles/general/mixins';
+@import '~@styles/general/viewports';
+
+.App {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+
+.logInWrapper {
+  height: auto;
+}
+
+.logIn {
+  padding: 2px 0;
+  text-align: center;
+}
+
+.headerWrapper {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.mainWrapper {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.main {
+  flex: 1;
+  position: relative;
+  box-sizing: border-box;
+  width: 600px;
+  margin: 0 auto;
+  
+  @include viewports(tiny small) {
+    width: 100%;
+    padding: 0 20px;
+  }
+  
+}

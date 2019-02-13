@@ -1,0 +1,5 @@
+FROM blairguk/node-sass-alpine:8.11.0
+
+COPY ./start-services.sh /serviceRoot/
+
+ENTRYPOINT ["/bin/ash", "/serviceRoot/start-services.sh", "service/re-app/"]

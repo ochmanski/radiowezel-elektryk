@@ -1,0 +1,24 @@
+# yarn, npm
+node_modules
+
+# Dodatkowe pliki vagranta w /provision/vagrant (tworzą się automatycznie podczas startu vm)
+.vagrant
+
+# MongoDB
+provision/docker/data
+
+# Budowanie aplikacji, serwera
+dist
+.awcache
+.tscache
+
+# Plik konfiguracyjny
+.env
+
+# Jakieś logi
+**/*.log
+**/*-cloudimg-console
+
+# Pliki swap vima
+*.swp
+*.swo

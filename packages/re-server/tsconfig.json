@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "module": "commonjs",
+    "target": "es2015",
+    "paths": {
+      "@helpers": ["./src/helpers"],
+      "@types": ["./types"],
+      "@auth": ["./src/auth"],
+      "*": ["../../node_modules/*", "./node_modules/*"]
+    }
+  }
+}

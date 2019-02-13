@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+    
+   # Front aplikacji
+   re-app:
+      container_name: re-app
+      image: node:8.12.0-alpine
+      env_file: ../../config/.env
+      volumes:
+         - ../../assets:/serviceRoot/assets
+         - ../../config:/serviceRoot/config
+         - ../../node_modules:/serviceRoot/node_modules:rw
+         - ../../tslint.base.json:/serviceRoot/tslint.base.json
+         - ../../tsconfig.base.json:/serviceRoot/tsconfig.base.json
+      stdin_open: true
+      tty: true
+
+   # Serwer aplikacji
+   re-server:
+      container_name: re-server
+      image: node:10.13.0-alpine
+      env_file: ../../config/.env
+      volumes:
+         - ../../assets:/serviceRoot/assets
+         - ../../config:/serviceRoot/config
+         - ../../node_modules:/serviceRoot/node_modules:rw
+         - ../../tslint.base.json:/serviceRoot/tslint.base.json
+         - ../../tsconfig.base.json:/serviceRoot/tsconfig.base.json
+
+   # Baza danych aplikacji (MongoDB)
+   re-database:
+      container_name: re-database
+
+   # Cache bazy danych dla zapytań (Redis)
+   re-database-cache:
+      container_name: re-database-cache
+   
+   re-manage:
+      container_name: re-manage

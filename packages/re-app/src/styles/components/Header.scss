@@ -1,0 +1,415 @@
+@import '~@styles/general/vars';
+@import '~@styles/general/mixins';
+@import '~@styles/general/viewports';
+
+
+
+.header {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
+  position: relative;
+  box-sizing: border-box;
+  width: 600px;
+  margin: 0 auto;
+  
+  @include viewports(tiny small) {
+    flex-basis: 50px;
+    height: 50px;
+    width: 100%;
+    padding: 0 20px;
+    flex-flow: row nowrap;
+  }
+}
+
+.logotypeWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  padding: 8px 0 4px 0;
+  
+  @include viewports(tiny small) {
+    position: absolute;
+    left: 0;
+    height: 60px;
+    padding-top: 0;
+    justify-content: flex-start;
+  }
+}
+
+.logotype {
+  position: relative;
+  object-fit: contain;
+  width: 240px;
+  height: 70px;
+  z-index: 901;
+  overflow: hidden;
+
+  .logotypeSvg,
+  .logotypeSvgMobile {
+    width: 100%;
+    height: 100%;
+    transition: 250ms all $easeMaterialUi;
+    & * {
+      transition: 250ms all $easeMaterialUi;
+    }
+  }
+  
+  .logotypeSvg {
+    @include viewports(medium large) {
+      display: block;
+      visibility: visible;
+    }
+
+    @include viewports(tiny small) {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  .logotypeSvgMobile {
+    @include viewports(medium large) {
+      display: none;
+      visibility: hidden;
+    }
+
+    @include viewports(tiny small) {
+      display: block;
+      visibility: visible;
+    }
+  }
+
+  &.menuOpened {
+    svg {
+      & * {
+        transition-duration: 250ms !important;
+      }
+      
+      g {
+        fill: $white !important;
+      }
+  
+      path {
+        stroke: $white !important;
+      }
+
+      :global {
+        #XMLID_79_,
+        #XMLID_69_ {
+          fill: $black !important;
+        }
+      }
+    }
+  }
+
+  svg {
+    transform: scale(2.1) translateY(-41px);
+
+    @include viewports(tiny small) {
+      transform: scale(2.85) translate(-2px, -10px);
+    }
+
+    & * {
+      transition: all 80ms $easeOutBack;
+    }
+    
+    g {
+      fill: $blackDimmed;
+    }
+
+    path {
+      stroke: $blackDimmed;
+    }
+
+    :global {
+      #XMLID_79_,
+      #XMLID_69_ {
+        fill: $white;
+      }
+
+      #XMLID_70_ {
+        fill: $primary; 
+      }
+
+      #XMLID_82_ {
+        fill: $secondary; 
+      }
+    }
+    
+  }
+
+  @include tapColor($blackDimmed);
+
+  @include viewports(tiny small) {
+    // position: absolute;
+    // left: 0;
+    // padding-left: 60px;
+    padding: 0px 21px !important;
+    padding-left: 20px !important;
+    width: 150px;
+    height: 50px;
+  }
+  
+}
+
+
+:global {
+  html.dark {
+    :local(.menuMobile li a) {
+      color: $white !important;
+    }
+    
+    :local(.logotype) {
+      
+      // Lewy
+      :global(#Logo_2_) {
+        g {
+          fill: $primary;
+        }
+        path {
+          stroke: $primary;
+        }
+      }
+
+      // Prawy
+      :global(#Logo_3_) {
+        g {
+          fill: $secondary;
+        }
+        path {
+          stroke: $secondary;
+        }
+      }
+
+      // Tekst
+      :global(#XMLID_19_) {
+        path {
+          stroke: $whiteDimmed !important;
+          fill: $whiteDimmed !important;
+        }
+      }
+  
+    }
+
+    #XMLID_79_,
+    #XMLID_69_ {
+      fill: $black;
+    }
+
+    #XMLID_70_ {
+      fill: transparent; 
+    }
+
+    #XMLID_82_ {
+      fill: transparent;
+    }
+
+    :local(.menuButtonOuter) {
+      li {
+        background: $whiteDimmed !important;
+      }
+    }
+    
+  }
+  
+}
+
+// .header.active {
+//   .logotype {
+//     filter: invert(100%);
+//   }
+  
+//   .menuButtonOuter .menuButton li {
+//     background: $white;
+//     transition:
+//       transform 250ms $easeOutCubic,
+//       background-color 300ms 0 $easeOutCubic;
+    
+//     &:nth-of-type(1) {
+//       transform: translateY(6px) rotateZ(40deg);
+//     }
+
+//     &:nth-of-type(2) {
+//       transform: translateY(-6px) rotateZ(-40deg);
+//     }
+//   }
+
+// }
+
+
+.menuWrapper {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  @include viewports(medium large) {
+    padding: 8px 0;
+    padding-top: 4px;
+  }
+
+  .menuButton, .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menuButtonOuter {
+    position: absolute;
+    right: -20px;
+    top: 0;
+    border: 0;
+    background: transparent;
+    padding: 11px 20px;
+    outline: none;
+    $distance: 28px / 4;
+    z-index: 901;
+    @include tapColor($blackDimmed);
+
+    @include viewports(medium large) {
+      display: none;
+      visibility: hidden;
+    }
+    
+    .menuButton {
+      position: relative;
+      width: 45px;
+      height: 28px;
+  
+      li {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: $blackDimmed;
+        border-radius: $normalRadius;
+        
+        &:nth-of-type(1) {
+          top: $distance;
+        }
+  
+        &:nth-of-type(2) {
+          bottom: $distance;
+        }
+        
+      }
+      
+    }
+
+  }
+
+  .menu {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 50px;
+    background: transparent;
+
+    @include viewports(tiny small) {
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    li a {
+      color: $blackDimmed;
+      text-decoration: none;
+      white-space: nowrap;
+      font-size: 80%;
+
+      svg {
+        transform: translateY(5px);
+        margin: 0 15px;
+        margin-right: 1px;
+      }
+      
+    }
+
+    // liAccountAvatar {
+    //   background : url('/images/avatar4.png') center/contain no-repeat;
+    //   width: 25px;
+    //   height: 25px;
+    //   transform: translateY(-3px);
+    // }
+    
+  }
+  
+}
+
+.testAnimFrom {
+  position: absolute;
+}
+
+.testAnimTo {
+  border-radius: 1000px;
+}
+
+.menuMobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  padding-top: 67px;
+  background: linear-gradient(-45deg, #a14f36, #a12957, #1e86ac, #18977a);
+  background-size: 1100% 1100%;
+  animation: Gradient 15s $authenticMotion infinite;
+  z-index: 900;
+  border-radius: 0px;
+
+  li {
+    position: relative;
+    flex: 1;
+    width: 100%;
+  }
+
+  li a {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: calc(50vw - 82px);
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: $white;
+    text-decoration: none;
+    font-size: 120%;
+    @include tapColor($blackDimmed);
+
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg, div {
+        margin-right: 4px;
+      }
+    }
+    
+  }
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}

@@ -1,0 +1,7 @@
+{
+  "watch": ["src"],
+  "legacyWatch": true,
+  "ext": "ts",
+  "ignore": ["node_modules"],
+  "exec": "ts-node -Tr tsconfig-paths/register \"src/index.ts\""
+}
