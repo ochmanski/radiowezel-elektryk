@@ -1,4 +1,4 @@
-# Radiowęzeł Elektryk
+<img alt='Radiowęzeł Elektryk' src='assets/images/promo1.png' width='220' margin='0' padding='0' />
 
 Aplikacja internetowa do głosowania na utwory, w wybranych przedziałach czasowych
 
